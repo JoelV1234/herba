@@ -5,7 +5,20 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Herbaapp</string>
+	<string>Herba</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Herba uses Bluetooth to find and pair with your greenhouse controller.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Herba uses Bluetooth to set up your greenhouse controller.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Herba talks to your greenhouse controller over your local WiFi network.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location is required by the system to scan for nearby Bluetooth devices.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

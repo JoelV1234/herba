@@ -44,7 +44,7 @@ class EnergyScreen extends StatelessWidget {
                 Text(
                   "Track your heater's runtime and consumption.",
                   style: theme.textTheme.bodyMedium
-                      ?.copyWith(color: AppColors.textSecondary),
+                      ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 const SizedBox(height: 16),
                 _SummaryGrid(
@@ -88,7 +88,7 @@ class EnergyScreen extends StatelessWidget {
                                 child: Text(
                                   'No energy data yet.',
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                      color: AppColors.textSecondary),
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 ),
                               )
                             : _EnergyChart(history: history),
@@ -177,9 +177,9 @@ class _SummaryGrid extends StatelessWidget {
             title: 'This week',
             primary: '${weekKwh.toStringAsFixed(1)} kWh',
             secondary: _formatDuration(weekRuntime),
-            color: AppColors.surface,
+            color: Theme.of(context).colorScheme.surface,
             primaryColor: AppColors.forest,
-            secondaryColor: AppColors.textSecondary,
+            secondaryColor: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
       ],
@@ -265,8 +265,8 @@ class _EnergyChart extends StatelessWidget {
           show: true,
           drawVerticalLine: false,
           horizontalInterval: maxY / 4,
-          getDrawingHorizontalLine: (_) => const FlLine(
-            color: AppColors.border,
+          getDrawingHorizontalLine: (_) => FlLine(
+            color: Theme.of(context).colorScheme.outlineVariant,
             strokeWidth: 1,
           ),
         ),
@@ -293,8 +293,8 @@ class _EnergyChart extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 6),
                   child: Text(
                     DateFormat.E().format(d).substring(0, 1),
-                    style: const TextStyle(
-                      color: AppColors.textSecondary,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 12,
                     ),
                   ),

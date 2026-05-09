@@ -44,7 +44,7 @@ class SetupCompleteScreen extends StatelessWidget {
                   'The controller is online and ready to keep your plants cozy.',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyLarge?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
                 const Spacer(flex: 2),

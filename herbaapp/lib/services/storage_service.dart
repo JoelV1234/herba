@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/controller_device.dart';
@@ -10,6 +11,7 @@ class StorageService {
   static const _keySchedules = 'schedules';
   static const _keyDemoMode = 'demo_mode';
   static const _keyOnboarded = 'onboarded';
+  static const _keyThemeMode = 'theme_mode';
 
   Future<SharedPreferences> get _prefs => SharedPreferences.getInstance();
 
@@ -67,6 +69,20 @@ class StorageService {
   Future<void> markOnboarded() async {
     final prefs = await _prefs;
     await prefs.setBool(_keyOnboarded, true);
+  }
+
+  Future<ThemeMode> loadThemeMode() async {
+    final prefs = await _prefs;
+    final raw = prefs.getString(_keyThemeMode);
+    return ThemeMode.values.firstWhere(
+      (m) => m.name == raw,
+      orElse: () => ThemeMode.system,
+    );
+  }
+
+  Future<void> saveThemeMode(ThemeMode mode) async {
+    final prefs = await _prefs;
+    await prefs.setString(_keyThemeMode, mode.name);
   }
 
   List<ScheduleEntry> _defaultSchedules() => const [];

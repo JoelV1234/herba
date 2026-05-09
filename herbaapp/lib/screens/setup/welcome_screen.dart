@@ -45,7 +45,7 @@ class WelcomeScreen extends StatelessWidget {
                 Text(
                   "Let's grow together. Pair your Herba controller to keep your greenhouse at the perfect temperature, automatically.",
                   style: theme.textTheme.bodyLarge?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     height: 1.5,
                   ),
                 ),
@@ -131,7 +131,7 @@ class _Bullet extends StatelessWidget {
               const SizedBox(height: 2),
               Text(description,
                   style: theme.textTheme.bodyMedium
-                      ?.copyWith(color: AppColors.textSecondary)),
+                      ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),

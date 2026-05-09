@@ -16,11 +16,17 @@ class HerbaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => AppState(),
-      child: MaterialApp(
-        title: 'Herba',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.light(),
-        home: const RootRouter(),
+      child: Consumer<AppState>(
+        builder: (context, state, _) {
+          return MaterialApp(
+            title: 'Herba',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light(),
+            darkTheme: AppTheme.dark(),
+            themeMode: state.themeMode,
+            home: const RootRouter(),
+          );
+        },
       ),
     );
   }

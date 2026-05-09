@@ -86,6 +86,7 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     final greeting = _greetingForNow();
     final controllerName =
         state.demoMode ? 'Demo greenhouse' : (state.device?.name ?? 'Greenhouse');
@@ -98,14 +99,14 @@ class _Header extends StatelessWidget {
               Text(
                 greeting,
                 style: theme.textTheme.bodyMedium
-                    ?.copyWith(color: AppColors.textSecondary),
+                    ?.copyWith(color: scheme.onSurfaceVariant),
               ),
               const SizedBox(height: 2),
               Text(
                 controllerName,
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: AppColors.forest,
+                  color: scheme.primary,
                 ),
               ),
             ],
@@ -170,6 +171,7 @@ class _HeaterControlsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     final s = state.status;
     final running = s.heaterState == HeaterState.heating;
     return EcoCard(
@@ -185,15 +187,15 @@ class _HeaterControlsCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: running
                       ? AppColors.warmGradient
-                      : const LinearGradient(colors: [
-                          AppColors.surfaceMuted,
-                          AppColors.surfaceMuted,
+                      : LinearGradient(colors: [
+                          scheme.surfaceContainerHighest,
+                          scheme.surfaceContainerHighest,
                         ]),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(
                   Icons.local_fire_department_rounded,
-                  color: running ? Colors.white : AppColors.textSecondary,
+                  color: running ? Colors.white : scheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(width: 14),
@@ -207,7 +209,7 @@ class _HeaterControlsCard extends StatelessWidget {
                     Text(
                       _heaterStatusText(s),
                       style: theme.textTheme.bodyMedium
-                          ?.copyWith(color: AppColors.textSecondary),
+                          ?.copyWith(color: scheme.onSurfaceVariant),
                     ),
                   ],
                 ),
@@ -270,11 +272,12 @@ class _MiniStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         decoration: BoxDecoration(
-          color: AppColors.surfaceMuted,
+          color: scheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -282,11 +285,11 @@ class _MiniStat extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(icon, size: 16, color: AppColors.textSecondary),
+                Icon(icon, size: 16, color: scheme.onSurfaceVariant),
                 const SizedBox(width: 4),
                 Text(label,
                     style: theme.textTheme.labelMedium
-                        ?.copyWith(color: AppColors.textSecondary)),
+                        ?.copyWith(color: scheme.onSurfaceVariant)),
               ],
             ),
             const SizedBox(height: 6),
@@ -378,13 +381,14 @@ class _StatusRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     return Row(
       children: [
-        Icon(icon, size: 18, color: AppColors.textSecondary),
+        Icon(icon, size: 18, color: scheme.onSurfaceVariant),
         const SizedBox(width: 10),
         Text(label,
             style: theme.textTheme.bodyMedium
-                ?.copyWith(color: AppColors.textSecondary)),
+                ?.copyWith(color: scheme.onSurfaceVariant)),
         const Spacer(),
         valueWidget,
       ],

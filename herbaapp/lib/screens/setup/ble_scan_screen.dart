@@ -200,7 +200,7 @@ class _BleScanScreenState extends State<BleScanScreen> {
                                           r.device.remoteId.str,
                                           style: theme.textTheme.bodySmall
                                               ?.copyWith(
-                                                  color: AppColors.textSecondary),
+                                                  color: Theme.of(context).colorScheme.onSurfaceVariant),
                                         ),
                                       ],
                                     ),
@@ -245,8 +245,8 @@ class _EmptyHint extends StatelessWidget {
               child: CircularProgressIndicator(strokeWidth: 3),
             )
           else
-            const Icon(Icons.bluetooth_disabled_rounded,
-                size: 48, color: AppColors.textSecondary),
+            Icon(Icons.bluetooth_disabled_rounded,
+                size: 48, color: Theme.of(context).colorScheme.onSurfaceVariant),
           const SizedBox(height: 16),
           Text(
             scanning ? 'Looking for nearby controllers…' : 'No controllers found yet',
@@ -256,7 +256,7 @@ class _EmptyHint extends StatelessWidget {
           Text(
             'Make sure the controller LED is pulsing blue.',
             style: theme.textTheme.bodyMedium
-                ?.copyWith(color: AppColors.textSecondary),
+                ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
           ),
         ],
       ),

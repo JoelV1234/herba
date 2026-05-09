@@ -124,7 +124,7 @@ class _WifiProvisionScreenState extends State<WifiProvisionScreen> {
                 Text(
                   "Pick the WiFi network you'd like the controller to use.",
                   style: theme.textTheme.bodyMedium
-                      ?.copyWith(color: AppColors.textSecondary),
+                      ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 const SizedBox(height: 16),
                 Expanded(
@@ -136,7 +136,7 @@ class _WifiProvisionScreenState extends State<WifiProvisionScreen> {
                                 'No networks found. Move closer to your router and retry.',
                                 textAlign: TextAlign.center,
                                 style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: AppColors.textSecondary),
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant),
                               ),
                             )
                           : ListView.separated(
@@ -148,8 +148,8 @@ class _WifiProvisionScreenState extends State<WifiProvisionScreen> {
                                 final isSelected = n.ssid == _selected?.ssid;
                                 return EcoCard(
                                   color: isSelected
-                                      ? AppColors.mint
-                                      : AppColors.surface,
+                                      ? Theme.of(context).colorScheme.primaryContainer
+                                      : Theme.of(context).colorScheme.surface,
                                   onTap: () =>
                                       setState(() => _selected = n),
                                   child: Row(
@@ -160,7 +160,7 @@ class _WifiProvisionScreenState extends State<WifiProvisionScreen> {
                                             : Icons.wifi_rounded,
                                         color: isSelected
                                             ? AppColors.forest
-                                            : AppColors.textPrimary,
+                                            : Theme.of(context).colorScheme.onSurface,
                                       ),
                                       const SizedBox(width: 14),
                                       Expanded(

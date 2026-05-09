@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_colors.dart';
-
 class EcoCard extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry padding;
@@ -22,6 +20,7 @@ class EcoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     final radius = borderRadius ?? BorderRadius.circular(24);
     return Material(
       color: Colors.transparent,
@@ -30,11 +29,11 @@ class EcoCard extends StatelessWidget {
         borderRadius: radius,
         child: Ink(
           decoration: BoxDecoration(
-            color: gradient == null ? (color ?? AppColors.surface) : null,
+            color: gradient == null ? (color ?? scheme.surface) : null,
             gradient: gradient,
             borderRadius: radius,
             border: gradient == null
-                ? Border.all(color: AppColors.border)
+                ? Border.all(color: scheme.outlineVariant)
                 : null,
           ),
           child: Padding(padding: padding, child: child),

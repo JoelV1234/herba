@@ -50,7 +50,7 @@ class ScheduleScreen extends StatelessWidget {
                   Text(
                     'Automate when the heater wakes up and shuts down.',
                     style: theme.textTheme.bodyMedium
-                        ?.copyWith(color: AppColors.textSecondary),
+                        ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                   const SizedBox(height: 16),
                   Expanded(
@@ -122,15 +122,15 @@ class _ScheduleCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: entry.enabled
                       ? AppColors.ecoGradient
-                      : const LinearGradient(colors: [
-                          AppColors.surfaceMuted,
-                          AppColors.surfaceMuted
+                      : LinearGradient(colors: [
+                          Theme.of(context).colorScheme.surfaceContainerHighest,
+                          Theme.of(context).colorScheme.surfaceContainerHighest,
                         ]),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(
                   Icons.schedule_rounded,
-                  color: entry.enabled ? Colors.white : AppColors.textSecondary,
+                  color: entry.enabled ? Colors.white : Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(width: 14),
@@ -146,7 +146,7 @@ class _ScheduleCard extends StatelessWidget {
                     Text(
                       '${_fmt(entry.startTime)} – ${_fmt(entry.endTime)} · ${entry.targetTemperatureC.toStringAsFixed(1)}°C',
                       style: theme.textTheme.bodyMedium
-                          ?.copyWith(color: AppColors.textSecondary),
+                          ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                     ),
                   ],
                 ),
@@ -166,8 +166,8 @@ class _ScheduleCard extends StatelessWidget {
               ),
               IconButton(
                 onPressed: onDelete,
-                icon: const Icon(Icons.delete_outline_rounded,
-                    color: AppColors.textSecondary),
+                icon: Icon(Icons.delete_outline_rounded,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
             ],
           ),
@@ -211,7 +211,7 @@ class _Empty extends StatelessWidget {
               'Add a schedule to automate when the heater turns on and off across the week.',
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium
-                  ?.copyWith(color: AppColors.textSecondary),
+                  ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ),
           const SizedBox(height: 16),

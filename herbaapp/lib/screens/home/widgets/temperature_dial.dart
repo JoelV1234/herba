@@ -25,9 +25,10 @@ class TemperatureDial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     final isHeating = heaterState == HeaterState.heating;
     final dialColor =
-        isHeating ? AppColors.ember : AppColors.forest;
+        isHeating ? AppColors.ember : scheme.primary;
     return Column(
       children: [
         SizedBox(
@@ -41,6 +42,9 @@ class TemperatureDial extends StatelessWidget {
                   current: currentC,
                   target: targetC,
                   isHeating: isHeating,
+                  trackColor: context.mintTint,
+                  tickColor: scheme.outlineVariant,
+                  targetColor: scheme.primary,
                 ),
               ),
               Column(
@@ -49,7 +53,7 @@ class TemperatureDial extends StatelessWidget {
                   Text(
                     'Inside',
                     style: theme.textTheme.labelLarge?.copyWith(
-                      color: AppColors.textSecondary,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       letterSpacing: 1.2,
                     ),
                   ),
@@ -117,10 +121,10 @@ class TemperatureDial extends StatelessWidget {
             children: [
               Text('${minC.round()}°C',
                   style: theme.textTheme.labelMedium
-                      ?.copyWith(color: AppColors.textSecondary)),
+                      ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
               Text('${maxC.round()}°C',
                   style: theme.textTheme.labelMedium
-                      ?.copyWith(color: AppColors.textSecondary)),
+                      ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -133,11 +137,17 @@ class _DialPainter extends CustomPainter {
   final double current;
   final double target;
   final bool isHeating;
+  final Color trackColor;
+  final Color tickColor;
+  final Color targetColor;
 
   _DialPainter({
     required this.current,
     required this.target,
     required this.isHeating,
+    required this.trackColor,
+    required this.tickColor,
+    required this.targetColor,
   });
 
   @override
@@ -150,7 +160,7 @@ class _DialPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 14
       ..strokeCap = StrokeCap.round
-      ..color = AppColors.mint;
+      ..color = trackColor;
 
     const startAngle = pi * 0.75;
     const sweep = pi * 1.5;
@@ -200,7 +210,7 @@ class _DialPainter extends CustomPainter {
       center.dy + sin(tickAngle) * (radius + 4),
     );
     final tickPaint = Paint()
-      ..color = AppColors.forest
+      ..color = targetColor
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round;
     canvas.drawLine(inner, outer, tickPaint);
@@ -219,7 +229,7 @@ class _DialPainter extends CustomPainter {
         center.dy + sin(angle) * (radius + 18),
       );
       final markerPaint = Paint()
-        ..color = AppColors.border
+        ..color = tickColor
         ..strokeWidth = 2;
       canvas.drawLine(a, b, markerPaint);
     }
@@ -229,5 +239,8 @@ class _DialPainter extends CustomPainter {
   bool shouldRepaint(covariant _DialPainter old) =>
       old.current != current ||
       old.target != target ||
-      old.isHeating != isHeating;
+      old.isHeating != isHeating ||
+      old.trackColor != trackColor ||
+      old.tickColor != tickColor ||
+      old.targetColor != targetColor;
 }

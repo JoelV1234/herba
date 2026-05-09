@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import '../models/controller_device.dart';
 import '../models/controller_status.dart';
@@ -34,6 +34,9 @@ class AppState extends ChangeNotifier {
   bool _demoMode = false;
   bool get demoMode => _demoMode;
 
+  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode get themeMode => _themeMode;
+
   // Live state
   ControllerStatus _status = ControllerStatus.offline();
   ControllerStatus get status => _status;
@@ -55,11 +58,18 @@ class AppState extends ChangeNotifier {
     _onboarded = await _storage.isOnboarded();
     _device = await _storage.loadDevice();
     _demoMode = await _storage.isDemoMode();
+    _themeMode = await _storage.loadThemeMode();
     _schedules = await _storage.loadSchedules();
     if (_onboarded || _demoMode) {
       await _attachTransport();
     }
     _initialized = true;
+    notifyListeners();
+  }
+
+  Future<void> setThemeMode(ThemeMode mode) async {
+    _themeMode = mode;
+    await _storage.saveThemeMode(mode);
     notifyListeners();
   }
 

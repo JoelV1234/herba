@@ -14,7 +14,9 @@ class LeafBackground extends StatelessWidget {
     return Stack(
       children: [
         Positioned.fill(
-          child: CustomPaint(painter: _BlobsPainter()),
+          child: CustomPaint(
+            painter: _BlobsPainter(isDark: context.isDark),
+          ),
         ),
         child,
       ],
@@ -23,13 +25,19 @@ class LeafBackground extends StatelessWidget {
 }
 
 class _BlobsPainter extends CustomPainter {
+  final bool isDark;
+  _BlobsPainter({required this.isDark});
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
+    final tintAlpha = isDark ? 0.18 : 0.55;
+    final tintAlphaSoft = isDark ? 0.12 : 0.7;
+    final dotAlpha = isDark ? 0.04 : 0.06;
 
     paint.shader = RadialGradient(
       colors: [
-        AppColors.sage.withValues(alpha: 0.55),
+        AppColors.sage.withValues(alpha: tintAlpha),
         AppColors.sage.withValues(alpha: 0),
       ],
     ).createShader(Rect.fromCircle(
@@ -44,7 +52,7 @@ class _BlobsPainter extends CustomPainter {
 
     paint.shader = RadialGradient(
       colors: [
-        AppColors.mint.withValues(alpha: 0.7),
+        (isDark ? AppColors.leaf : AppColors.mint).withValues(alpha: tintAlphaSoft),
         AppColors.mint.withValues(alpha: 0),
       ],
     ).createShader(Rect.fromCircle(
@@ -58,7 +66,7 @@ class _BlobsPainter extends CustomPainter {
     );
 
     paint.shader = null;
-    paint.color = AppColors.leaf.withValues(alpha: 0.06);
+    paint.color = AppColors.leaf.withValues(alpha: dotAlpha);
     final rng = Random(42);
     for (var i = 0; i < 14; i++) {
       final dx = rng.nextDouble() * size.width;
@@ -69,5 +77,5 @@ class _BlobsPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _BlobsPainter old) => old.isDark != isDark;
 }

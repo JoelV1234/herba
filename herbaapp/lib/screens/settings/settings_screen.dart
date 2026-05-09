@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../state/app_state.dart';
-import '../../theme/app_colors.dart';
 import '../../widgets/eco_card.dart';
 import '../../widgets/leaf_background.dart';
 
@@ -13,6 +12,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     return LeafBackground(
       child: SafeArea(
         child: Consumer<AppState>(
@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
                   'Settings',
                   style: theme.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w800,
-                    color: AppColors.forest,
+                    color: scheme.primary,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -66,6 +66,22 @@ class SettingsScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 EcoCard(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Appearance',
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontWeight: FontWeight.w700)),
+                      const SizedBox(height: 12),
+                      _ThemeModeSelector(
+                        value: state.themeMode,
+                        onChanged: (m) => state.setThemeMode(m),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                EcoCard(
+                  child: Column(
                     children: [
                       SwitchListTile(
                         contentPadding: EdgeInsets.zero,
@@ -84,8 +100,8 @@ class SettingsScreen extends StatelessWidget {
                     children: [
                       ListTile(
                         contentPadding: EdgeInsets.zero,
-                        leading: const Icon(Icons.refresh_rounded,
-                            color: AppColors.forest),
+                        leading: Icon(Icons.refresh_rounded,
+                            color: scheme.primary),
                         title: const Text('Re-pair controller'),
                         subtitle: const Text(
                             'Forget this controller and start setup again.'),
@@ -99,7 +115,7 @@ class SettingsScreen extends StatelessWidget {
                   child: Text(
                     'Herba · v1.0.0',
                     style: theme.textTheme.labelSmall
-                        ?.copyWith(color: AppColors.textSecondary),
+                        ?.copyWith(color: scheme.onSurfaceVariant),
                   ),
                 ),
               ],
@@ -142,11 +158,12 @@ class _Row extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     return Row(
       children: [
         Text(label,
             style: theme.textTheme.bodyMedium
-                ?.copyWith(color: AppColors.textSecondary)),
+                ?.copyWith(color: scheme.onSurfaceVariant)),
         const Spacer(),
         Flexible(
           child: Text(
@@ -158,6 +175,93 @@ class _Row extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _ThemeModeSelector extends StatelessWidget {
+  final ThemeMode value;
+  final ValueChanged<ThemeMode> onChanged;
+
+  const _ThemeModeSelector({required this.value, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        _ModeChip(
+          icon: Icons.brightness_auto_rounded,
+          label: 'System',
+          selected: value == ThemeMode.system,
+          onTap: () => onChanged(ThemeMode.system),
+        ),
+        const SizedBox(width: 8),
+        _ModeChip(
+          icon: Icons.light_mode_rounded,
+          label: 'Light',
+          selected: value == ThemeMode.light,
+          onTap: () => onChanged(ThemeMode.light),
+        ),
+        const SizedBox(width: 8),
+        _ModeChip(
+          icon: Icons.dark_mode_rounded,
+          label: 'Dark',
+          selected: value == ThemeMode.dark,
+          onTap: () => onChanged(ThemeMode.dark),
+        ),
+      ],
+    );
+  }
+}
+
+class _ModeChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _ModeChip({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final bg = selected ? scheme.primary : scheme.surfaceContainerHighest;
+    final fg = selected ? scheme.onPrimary : scheme.onSurface;
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          decoration: BoxDecoration(
+            color: bg,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: selected ? scheme.primary : scheme.outlineVariant,
+            ),
+          ),
+          child: Column(
+            children: [
+              Icon(icon, color: fg, size: 22),
+              const SizedBox(height: 6),
+              Text(
+                label,
+                style: theme.textTheme.labelLarge?.copyWith(
+                  color: fg,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

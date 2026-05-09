@@ -104,7 +104,7 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
                   children: [
                     Text('Name',
                         style: theme.textTheme.labelLarge
-                            ?.copyWith(color: AppColors.textSecondary)),
+                            ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                     const SizedBox(height: 8),
                     TextField(
                       controller: _label,
@@ -122,7 +122,7 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
                   children: [
                     Text('Time',
                         style: theme.textTheme.labelLarge
-                            ?.copyWith(color: AppColors.textSecondary)),
+                            ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                     const SizedBox(height: 12),
                     Row(
                       children: [
@@ -153,7 +153,7 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
                   children: [
                     Text('Days',
                         style: theme.textTheme.labelLarge
-                            ?.copyWith(color: AppColors.textSecondary)),
+                            ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                     const SizedBox(height: 12),
                     Wrap(
                       spacing: 8,
@@ -171,7 +171,7 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
                             decoration: BoxDecoration(
                               color: selected
                                   ? AppColors.forest
-                                  : AppColors.surfaceMuted,
+                                  : Theme.of(context).colorScheme.surfaceContainerHighest,
                               borderRadius: BorderRadius.circular(99),
                             ),
                             child: Text(
@@ -179,7 +179,7 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
                               style: theme.textTheme.titleSmall?.copyWith(
                                 color: selected
                                     ? Colors.white
-                                    : AppColors.textPrimary,
+                                    : Theme.of(context).colorScheme.onSurface,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -199,7 +199,7 @@ class _ScheduleEditorScreenState extends State<ScheduleEditorScreen> {
                       children: [
                         Text('Target temperature',
                             style: theme.textTheme.labelLarge
-                                ?.copyWith(color: AppColors.textSecondary)),
+                                ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                         const Spacer(),
                         Text(
                           '${_target.toStringAsFixed(1)}°C',
@@ -252,7 +252,7 @@ class _TimePill extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
-          color: AppColors.surfaceMuted,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -260,7 +260,7 @@ class _TimePill extends StatelessWidget {
           children: [
             Text(label,
                 style: theme.textTheme.labelSmall
-                    ?.copyWith(color: AppColors.textSecondary)),
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             const SizedBox(height: 4),
             Text(
               '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}',
